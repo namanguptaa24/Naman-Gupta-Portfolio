@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naman Gupta | Data Scientist & Analyst Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors and font -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode based on the 'dark' class on <html>
+            theme: {
+                extend: {
+                    colors: {
+                        'accent': '#0E9AA7', // Teal accent color
+
+                        // Light Mode Defaults
+                        'background': '#F9FAFB',
+                        'card-bg': '#FFFFFF',
+                        'text-primary': '#1F2937',
+                        'text-secondary': '#6B7280',
+
+                        // Dark Mode Overrides (used with dark: prefix)
+                        'dark-background': '#1A202C', // Dark background
+                        'dark-card-bg': '#2D3748', // Slightly lighter dark card
+                        'dark-text-primary': '#F7FAFC', // White/light text
+                        'dark-text-secondary': '#A0AEC0', // Light gray text
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    // Subtle shadow for cards
+                    boxShadow: {
+                        'custom': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Load Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Include Devicon CSS in <head> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <style>
+        /* Custom scroll behavior and font */
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            /* Base colors are now handled by Tailwind classes on <body> */
+        }
+
+        /* Utility class for icon size */
+        .icon {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+        }
+
+        /* Subtle glow on hover for interactive elements */
+        .hover-glow:hover {
+            box-shadow: 0 0 15px rgba(14, 154, 167, 0.5);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .section-padding {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        /* Style the sticky header */
+        .sticky-header {
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* Dark mode shadow adjustment */
+        .dark .sticky-header {
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom styles for cards and badges */
+        .skill-card, .service-card, .project-card, .cert-badge, .experience-card {
+            transition: all 0.3s ease-in-out;
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem;
+        }
+        
+        .skill-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.25rem;
+            cursor: default;
+        }
+
+        .cert-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500;
+            margin: 0.25rem;
+            text-align: center;
+            /* Colors are handled by Tailwind classes in the HTML */
+        }
+        
+        .experience-card {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 768px) {
+            .experience-card {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-text-primary transition-colors duration-500 dark:bg-dark-background dark:text-dark-text-primary">
+
+    <!-- JavaScript Functions -->
+    <script>
+        // Theme Management Functions
+        const THEME_KEY = 'portfolio-theme';
+
+        /**
+         * Applies the theme class ('dark' or removes it) to the HTML element.
+         */
+        function applyTheme(theme) {
+            const html = document.documentElement;
+            html.classList.toggle('dark', theme === 'dark');
+        }
+
+        /**
+         * Toggles the theme and saves the preference to localStorage.
+         */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            
+            const newTheme = isDark ? 'light' : 'dark';
+            localStorage.setItem(THEME_KEY, newTheme);
+            applyTheme(newTheme);
+        }
+
+        // Function to toggle the mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Function to close mobile menu after clicking a link
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Function to open the resume PDF link
+        function openResume() {
+            window.open("https://drive.google.com/file/d/1zYgCCFNfjj0-Nw_yurkxhE2KwDIWHcsJ/view?usp=drive_link", "_blank");
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Initialization
+            const savedTheme = localStorage.getItem(THEME_KEY);
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            let initialTheme = 'light';
+            if (savedTheme) {
+                initialTheme = savedTheme;
+            } else if (systemPrefersDark) {
+                initialTheme = 'dark';
+            }
+            applyTheme(initialTheme);
+            
+            // Theme Toggle Listener
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', toggleTheme);
+            }
+
+            // Other listeners
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            mobileBtn.addEventListener('click', toggleMobileMenu);
+
+            const resumeBtn = document.getElementById('resume-btn');
+            if (resumeBtn) {
+                resumeBtn.addEventListener('click', openResume);
+            }
+        });
+    </script>
+
+
+    <!-- Navbar/Header -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white sticky-header dark:bg-dark-card-bg">
+        <div class="container mx-auto px-6 lg:px-12 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-extrabold text-accent tracking-tight">Naman Gupta</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 text-lg font-medium">
+                <a href="#home" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Home</a>
+                <a href="#about" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">About</a>
+                <a href="#skills" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Skills</a>
+                <a href="#experience" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Experience</a>
+                <a href="#projects" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Projects</a>
+                <a href="#contact" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Contact</a>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                 <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 focus:outline-none">
+                    <!-- Sun icon for dark mode (appears when it's dark) -->
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="icon hidden text-text-primary dark:block dark:text-dark-text-primary" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -14.4l.7 .7m12.1 -.7l-.7 .7m-11.4 11.4l.7 .7m10.7 -.7l-.7 .7" /></svg>
+                    <!-- Moon icon for light mode (appears when it's light) -->
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="icon text-text-primary dark:hidden dark:text-dark-text-primary" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a7.9 7.9 0 0 1 -2.083 .344a7.5 7.5 0 0 1 -8.053 -12.285z" /></svg>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden focus:outline-none p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-background">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-menu-2 text-text-primary dark:text-dark-text-primary" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M4 6l16 0" /><path d="M4 12l16 0" /><path d="M4 18l16 0" /></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <nav id="mobile-menu" class="hidden md:hidden bg-white dark:bg-dark-card-bg px-6 pb-4 border-t border-gray-100 dark:border-gray-700">
+            <a href="#home" class="block py-2 text-text-primary dark:text-dark-text-primary hover:text-accent border-b border-gray-100 dark:border-gray-700" onclick="closeMobileMenu()">Home</a>
+            <a href="#about" class="block py-2 text-text-primary dark:text-dark-text-primary hover:text-accent border-b border-gray-100 dark:border-gray-700" onclick="closeMobileMenu()">About</a>
+            <a href="#skills" class="block py-2 text-text-primary dark:text-dark-text-primary hover:text-accent border-b border-gray-100 dark:border-gray-700" onclick="closeMobileMenu()">Skills</a>
+            <a href="#experience" class="block py-2 text-text-primary dark:text-dark-text-primary hover:text-accent border-b border-gray-100 dark:border-gray-700" onclick="closeMobileMenu()">Experience</a>
+            <a href="#projects" class="block py-2 text-text-primary dark:text-dark-text-primary hover:text-accent border-b border-gray-100 dark:border-gray-700" onclick="closeMobileMenu()">Projects</a>
+            <a href="#contact" class="block py-2 text-text-primary dark:text-dark-text-primary hover:text-accent" onclick="closeMobileMenu()">Contact</a>
+        </nav>
+    </header>
+
+    <main class="pt-[68px]"> <!-- Offset for the fixed header -->
+
+        <!-- 1. Home Section (Hero) -->
+        <section id="home" class="section-padding pt-24 md:pt-40 pb-20 bg-card-bg dark:bg-dark-card-bg">
+            <div class="container mx-auto px-6 lg:px-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Text Content -->
+                    <div class="space-y-6">
+                        <p class="text-xl font-medium text-accent animate-fadeIn">Hello there!</p>
+                        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-text-primary dark:text-dark-text-primary">
+                            Hi, I’m <span class="text-accent">Naman Gupta</span> — Aspiring Data Scientist and Analyst.
+                        </h1>
+                        <p class="text-xl text-text-secondary dark:text-dark-text-secondary max-w-lg">
+                            Specializing in machine learning, data analysis, and predictive modeling, solving real-world problems through data storytelling.
+                        </p>
+
+                        <!-- Social Links -->
+                        <div class="flex space-x-4 pt-4">
+                           <!-- GitHub Link -->
+<a href="https://github.com/namanguptaa24?tab=repositories" target="_blank" class="p-3 bg-gray-200 text-text-primary rounded-full hover:bg-accent hover:text-white transition duration-300 hover-glow dark:bg-gray-700 dark:text-dark-text-primary" title="GitHub">
+    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/>
+        <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.4a12.1 12.1 0 0 0 -6.2 0c-2.4 -1.7 -3.5 -1.4 -3.5 -1.4a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>
+    </svg>
+</a>
+
+<!-- LinkedIn Link (official logo) -->
+<a href="https://linkedin.com/in/naman-gupta-38b79b289" target="_blank" class="p-3 bg-gray-200 text-text-primary rounded-full hover:bg-accent hover:text-white transition duration-300 hover-glow dark:bg-gray-700 dark:text-dark-text-primary" title="LinkedIn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11.75 20h-3v-11h3v11zm-1.5-12.3c-.97 0-1.75-.79-1.75-1.75s.79-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.25 12.3h-3v-5.5c0-1.3-.02-2.98-1.82-2.98-1.82 0-2.1 1.42-2.1 2.88v5.6h-3v-11h2.88v1.5h.04c.4-.75 1.37-1.53 2.82-1.53 3.02 0 3.58 1.98 3.58 4.55v6.48z"/>
+    </svg>
+</a>
+
+                            <!-- Resume Button -->
+<button 
+  id="resume-btn" 
+  class="px-6 py-3 bg-accent text-white font-semibold rounded-full hover:bg-teal-700 transition duration-300 shadow-lg hover-glow" 
+  title="View Resume">
+  Resume
+</button>
+
+                        </div>
+                    </div>
+
+                    <!-- Profile Picture (Placeholder) -->
+                    <div class="flex justify-center md:justify-end">
+                        <div class="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                            <!-- Circular frame and background -->
+                            <div class="absolute inset-0 rounded-full bg-teal-100 dark:bg-accent/30 transform translate-x-3 translate-y-3 md:translate-x-5 md:translate-y-5"></div>
+                            
+                            <!-- Image with border -->
+                            <img 
+                                src="https://i.postimg.cc/8cC1T48W/IMG-20230802-204421-865-1.jpg." 
+                                onerror="this.onerror=null;this.src='https://placehold.co/400x400/9CA3AF/ffffff?text=Placeholder'" 
+                                alt="Naman Gupta Profile Picture" 
+                                class="relative w-full h-full object-cover rounded-full border-4 border-white dark:border-dark-card-bg shadow-2xl transition duration-500 hover:scale-[1.02] hover:shadow-accent/40"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. About Section -->
+        <section id="about" class="section-padding bg-background dark:bg-dark-background">
+            <div class="container mx-auto px-6 lg:px-12">
+                <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">About Me</h2>
+
+                <!-- Bio -->
+                <div class="max-w-4xl mx-auto text-center mb-16 p-6 bg-card-bg dark:bg-dark-card-bg rounded-xl shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                    <p class="text-xl text-text-secondary dark:text-dark-text-secondary leading-relaxed">
+                         Hello, I’m 𝗡𝗮𝗺𝗮𝗻 𝗚𝘂𝗽𝘁𝗮, a B.Tech student in 𝗔𝗿𝘁𝗶𝗳𝗶𝗰𝗶𝗮𝗹 𝗜𝗻𝘁𝗲𝗹𝗹𝗶𝗴𝗲𝗻𝗰𝗲 𝗮𝗻𝗱 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝗰𝗲 at the 𝗠𝗼𝗱𝗲𝗿𝗻 𝗜𝗻𝘀𝘁𝗶𝘁𝘂𝘁𝗲 𝗼𝗳 𝗧𝗲𝗰𝗵𝗻𝗼𝗹𝗼𝗴𝘆 𝗮𝗻𝗱 𝗥𝗲𝘀𝗲𝗮𝗿𝗰𝗵 𝗖𝗲𝗻𝘁𝗿𝗲.<br>
+A detail-oriented 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝘀𝘁 𝗮𝗻𝗱 𝗔𝗻𝗮𝗹𝘆𝘀𝘁 with experience in machine learning, data analysis and predictive modeling. Wants to use the skills learned in 𝗣𝘆𝘁𝗵𝗼𝗻, 𝗦𝗤𝗟 and 𝗗𝗮𝘁𝗮 𝗩𝗶𝘀𝘂𝗮𝗹𝗶𝘇𝗮𝘁𝗶𝗼𝗻 for real-life solutions. Strong 𝗽𝗿𝗼𝗯𝗹𝗲𝗺 𝘀𝗼𝗹𝘃𝗶𝗻𝗴 and 
+𝗱𝗲𝗯𝘂𝗴𝗴𝗶𝗻𝗴 𝘀𝗸𝗶𝗹𝗹𝘀.                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-10">
+                    <!-- Education -->
+                    <div class="p-8 bg-card-bg dark:bg-dark-card-bg rounded-xl shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-2xl font-semibold text-accent mb-6 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mr-2" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M3 19a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M10 4l-2 5l-.5 4.5l-2.5 1.5" /><path d="M12 10v4l2 3" /><path d="M15 15l2 3" /></svg>
+                            Educational Journey
+                        </h3>
+                        <ul class="space-y-6">
+                            <li class="border-l-4 border-accent pl-4">
+                                <p class="font-bold text-lg text-text-primary dark:text-dark-text-primary">B.Tech in Artificial Intelligence & Data Science</p>
+                                <p class="text-text-secondary dark:text-dark-text-secondary">Modern Institute of Technology & Research Centre, Alwar</p>
+                                <p class="text-sm italic text-text-secondary dark:text-dark-text-secondary">2022–2026 | CGPA: 8.6</p>
+                            </li>
+                            <li class="border-l-4 border-accent pl-4">
+                                <p class="font-bold text-lg text-text-primary dark:text-dark-text-primary">12th Grade</p>
+                                <p class="text-text-secondary dark:text-dark-text-secondary">Krishna Vidhya Mandir Sr. Secondary School, Alwar</p>
+                                <p class="text-sm italic text-text-secondary dark:text-dark-text-secondary">2021 | Percentage: 85.40%</p>
+                            </li>
+                            <li class="border-l-4 border-accent pl-4">
+                                <p class="font-bold text-lg text-text-primary dark:text-dark-text-primary">10th Grade</p>
+                                <p class="text-text-secondary dark:text-dark-text-secondary">Oswal Jain Sr. Secondary School, Alwar</p>
+                                <p class="text-sm italic text-text-secondary dark:text-dark-text-secondary">2019 | Percentage: 58.83%</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Certificates -->
+                    <div class="p-8 bg-card-bg dark:bg-dark-card-bg rounded-xl shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-2xl font-semibold text-accent mb-6 flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mr-2" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M15 4l6 2v5h-3v-5l-6 -2" /><path d="M10 6l-6 2v5h3" /><path d="M10 20v-5h-6v5h12v-5h-3" /></svg>
+                            Certifications
+                        </h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Machine Learning (SkillOcean)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Power BI (SkillOcean)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Tableau (SkillOcean)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Deep Learning (Upflairs)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">NLP (Upflairs)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">GPT Technologies (Upflairs)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Python Programming (InternPe)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Data Visualization (TATA)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">SQL (IBM)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Data Science (British Airways)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">HTML, CSS, JS (Great Learning)</span>
+                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Hackathon Participant ( National Innovation Fest 3.0, OP Jindal University)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Skills Section -->
+       <section id="skills" class="section-padding bg-card-bg dark:bg-dark-card-bg">
+    <div class="container mx-auto px-6 lg:px-12">
+        <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">Technical Skills & Tools</h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 max-w-6xl mx-auto">
+
+            <!-- Python -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-python-plain colored text-6xl"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Python</p>
+            </div>
+
+            <!-- SQL -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-mysql-plain colored text-6xl"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">SQL</p>
+            </div>
+
+            <!-- Machine Learning (TensorFlow) -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-tensorflow-original colored text-6xl"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Machine Learning</p>
+            </div>
+
+            <!-- NLP (use Python icon or TensorFlow) -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-python-plain colored text-6xl"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">NLP</p>
+            </div>
+
+            <!-- Pandas -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/pandas.svg" class="w-12 h-12" alt="Pandas Logo"/>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Pandas</p>
+            </div>
+
+            <!-- NumPy -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/numpy.svg" class="w-12 h-12" alt="NumPy Logo"/>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">NumPy</p>
+            </div>
+
+            <!-- Power BI -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <!-- Placeholder image URL is not ideal, using a generic one that should load -->
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGwj0Fbadxtw9yGKKLOzaQmXTtHgyyXq_rvA&so.svg" class="w-12 h-12" alt="Power BI Logo"/>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Power BI</p>
+            </div>
+             <!-- Tableau -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tableau.svg" class="w-12 h-12" alt="Tableau-Symbol Logo"/>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Tableau</p>
+            </div>
+
+            <!-- Matplotlib/Seaborn (use Python icon for now) -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTX_Rjs81DKT6AIa1P6W6NeDnQk0-S7Ulowp3itV3RZeUEUOMTgOXjEs0rIvJSUlHPP0tE&usqp=CAU" class="w-12 h-12" alt="Matplotlib Logo"/>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Matplotlib/Seaborn</p>
+            </div>
+
+            <!-- HTML -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-html5-plain colored text-6xl"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">HTML</p>
+            </div>
+
+            <!-- CSS -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-css3-plain colored text-6xl"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">CSS</p>
+            </div>
+
+            <!-- GitHub -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-github-original text-6xl dark:text-dark-text-primary"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">GitHub</p>
+            </div>
+
+            <!-- VS Code -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <i class="devicon-vscode-plain colored text-6xl"></i>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">VS Code / Colab</p>
+            </div>
+
+            <!-- Microsoft Excel (SVG from Simple Icons) -->
+            <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/microsoftexcel.svg" class="w-12 h-12" alt="Excel Logo"/>
+                <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Microsoft Excel</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+        <!-- 4. Experience Section -->
+        <section id="experience" class="section-padding bg-background dark:bg-dark-background">
+            <div class="container mx-auto px-6 lg:px-12 max-w-4xl">
+                <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">Internship Experience</h2>
+
+                <div class="space-y-12">
+                    <!-- TATA Internship -->
+                    <div class="experience-card bg-card-bg dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <div class="md:w-1/4 flex-shrink-0 text-text-secondary dark:text-dark-text-secondary md:text-right mb-2 md:mb-0">
+                            <p class="font-medium">July 2024</p>
+                        </div>
+                        <div class="md:w-3/4 md:pl-8 border-l-4 border-accent space-y-3 pl-4">
+                            <h3 class="text-2xl font-bold text-text-primary dark:text-dark-text-primary">Data Visualization Intern</h3>
+                            <p class="text-xl font-medium text-accent">TATA</p>
+                            <ul class="list-disc list-inside text-text-secondary dark:text-dark-text-secondary space-y-1 ml-4">
+                                <li>Built interactive 𝗣𝗼𝘄𝗲𝗿 𝗕𝗜 dashboards to extract actionable business insights.</li>
+                                <li>Conducted 𝗘𝘅𝗽𝗹𝗼𝗿𝗮𝘁𝗼𝗿𝘆 𝗗𝗮𝘁𝗮 𝗔𝗻𝗮𝗹𝘆𝘀𝗶𝘀 (𝗘𝗗𝗔) to uncover critical trends and patterns in business data.</li>
+                                <li>Developed crucial 𝗱𝗮𝘁𝗮 𝘀𝘁𝗼𝗿𝘆𝘁𝗲𝗹𝗹𝗶𝗻𝗴 skills through compelling visualizations.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- InternPe Internship -->
+                    <div class="experience-card bg-card-bg dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <div class="md:w-1/4 flex-shrink-0 text-text-secondary dark:text-dark-text-secondary md:text-right mb-2 md:mb-0">
+                            <p class="font-medium">Aug 2023 – Sep 2023</p>
+                        </div>
+                        <div class="md:w-3/4 md:pl-8 border-l-4 border-accent space-y-3 pl-4">
+                            <h3 class="text-2xl font-bold text-text-primary dark:text-dark-text-primary">Python Programming Intern</h3>
+                            <p class="text-xl font-medium text-accent">InternPe</p>
+                            <ul class="list-disc list-inside text-text-secondary dark:text-dark-text-secondary space-y-1 ml-4">
+                                <li>Automated tasks with 𝗣𝘆𝘁𝗵𝗼𝗻 𝘀𝗰𝗿𝗶𝗽𝘁𝘀 focusing on file handling and data processing.</li>
+                                <li>Improved problem-solving abilities through practical application of loops, functions, and error handling.</li>
+                                <li>Delivered projects aligned with real-world programming scenarios.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Projects Section -->
+        <section id="projects" class="section-padding bg-card-bg dark:bg-dark-card-bg">
+            <div class="container mx-auto px-6 lg:px-12">
+                <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">Projects</h2>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card: Women Safety App -->
+                    <div class="project-card hover-glow bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-xl font-bold text-accent mb-2">Women Safety App</h3>
+                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4">A responsive web application focused on personal safety.</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+                            <li>Features live location tracking and emergency alerts.</li>
+                            <li>Includes secure authentication and voice trigger functionality.</li>
+                        </ul>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="https://github.com/namanguptaa24/Women-Safety-Web-App" target="_blank" class="project-link text-sm font-semibold text-text-primary dark:text-dark-text-primary hover:text-accent">View GitHub &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card: Multi-Disease Early Prediction System -->
+                    <div class="project-card hover-glow bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-xl font-bold text-accent mb-2">Multi-Disease Early Prediction System</h3>
+                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4">Machine learning model for predicting multiple diseases.</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+                            <li>Uses the Random Forest algorithm with class balancing.</li>
+                            <li>Predicts Diabetes, Heart Disease, Parkinson's, and more.</li>
+                        </ul>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="https://github.com/namanguptaa24/Multi-Disease-Early-Prediction-System" target="_blank" class="project-link text-sm font-semibold text-text-primary dark:text-dark-text-primary hover:text-accent">View GitHub &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card: Student Performance Prediction -->
+                    <div class="project-card hover-glow bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-xl font-bold text-accent mb-2">Student Performance Prediction</h3>
+                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4">Predicting academic outcomes with high accuracy.</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+                            <li>Achieved 96% accuracy after extensive preprocessing and model tuning.</li>
+                        </ul>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="https://github.com/namanguptaa24?tab=repositories" target="_blank" class="project-link text-sm font-semibold text-text-primary dark:text-dark-text-primary hover:text-accent">View GitHub &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card: Credit Card Fraud Detection -->
+                    <div class="project-card hover-glow bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-xl font-bold text-accent mb-2">Credit Card Fraud Detection</h3>
+                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4">A financial security application using classification.</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+                            <li>Employed Logistic Regression and ensemble methods.</li>
+                            <li>Achieved 87% accuracy using under-sampling techniques.</li>
+                        </ul>
+                        <div class="flex space-space-x-4 mt-4">
+                            <a href="https://github.com/namanguptaa24/Fraud-Detection" target="_blank" class="project-link text-sm font-semibold text-text-primary dark:text-dark-text-primary hover:text-accent">View GitHub &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project Card: Heart Disease Prediction -->
+                    <div class="project-card hover-glow bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-xl font-bold text-accent mb-2">Heart Disease Prediction</h3>
+                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4">A critical health prediction model.</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+                            <li>Used Logistic Regression achieving 91% accuracy.</li>
+                            <li>Included comprehensive feature engineering and model evaluation.</li>
+                        </ul>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="https://github.com/namanguptaa24?tab=repositories" target="_blank" class="project-link text-sm font-semibold text-text-primary dark:text-dark-text-primary hover:text-accent">View GitHub &rarr;</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project Card: Classic Python Projects -->
+                    <div class="project-card hover-glow bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                        <h3 class="text-xl font-bold text-accent mb-2">Classic Python Projects</h3>
+                        <p class="text-text-secondary dark:text-dark-text-secondary mb-4">Showcasing foundational Python and GUI skills.</p>
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+                            <li>Includes the Snake Game, Connect Four, and a Digital Clock implementation using Tkinter/Turtle.</li>
+                        </ul>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="https://github.com/namanguptaa24?tab=repositories" target="_blank" class="project-link text-sm font-semibold text-text-primary dark:text-dark-text-primary hover:text-accent">View GitHub &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <!-- 7. Contact Section -->
+<section id="contact" class="section-padding bg-background dark:bg-dark-background">
+    <div class="container mx-auto px-6 lg:px-12">
+        <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">Get In Touch</h2>
+
+        <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <!-- Contact Details -->
+            <div class="space-y-6 p-6 rounded-xl bg-card-bg dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
+                <h3 class="text-2xl font-semibold text-accent mb-4">Contact Information</h3>
+                
+                <!-- Email -->
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon text-accent h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
+                    <div>
+                        <p class="text-sm font-medium text-text-secondary dark:text-dark-text-secondary">Email</p>
+                        <a href="mailto:guptanaman7979@gmail.com" class="text-lg text-text-primary dark:text-dark-text-primary hover:text-accent transition duration-200">guptanaman7979@gmail.com</a>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon text-accent h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>
+                    <div>
+                        <p class="text-sm font-medium text-text-secondary dark:text-dark-text-secondary">Phone</p>
+                        <a href="tel:+916367577176" class="text-lg text-text-primary dark:text-dark-text-primary hover:text-accent transition duration-200">+91 6367577176</a>
+                    </div>
+                </div>
+                
+                <!-- LinkedIn -->
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon text-accent h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M8 11l0 5" /><path d="M8 8l0 .01" /><path d="M12 16l0 -5" /><path d="M16 16v-3a2 2 0 0 0 -4 0" /></svg>
+                    <div>
+                        <p class="text-sm font-medium text-text-secondary dark:text-dark-text-secondary">LinkedIn</p>
+                        <a href="https://www.linkedin.com/in/naman-gupta-38b79b289/" target="_blank" class="text-lg text-text-primary dark:text-dark-text-primary hover:text-accent transition duration-200">/naman-gupta-38b79b289</a>
+                    </div>
+                </div>
+
+                <!-- GitHub -->
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon text-accent h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.4a12.1 12.1 0 0 0 -6.2 0c-2.4 -1.7 -3.5 -1.4 -3.5 -1.4a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+                    <div>
+                        <p class="text-sm font-medium text-text-secondary dark:text-dark-text-secondary">GitHub</p>
+                        <a href="https://github.com/namanguptaa24?tab=repositories" target="_blank" class="text-lg text-text-primary dark:text-dark-text-primary hover:text-accent transition duration-200">/namanguptaa24</a>
+                    </div>
+                </div>
+                <!-- Location -->
+                <div class="flex items-center space-x-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon text-accent h-6 w-6" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M12 21c-4.97-4.5-8-8.5-8-12a8 8 0 1 1 16 0c0 3.5-3.03 7.5-8 12z" /><circle cx="12" cy="9" r="2" /></svg>
+                    <div>
+                        <p class="text-sm font-medium text-text-secondary dark:text-dark-text-secondary">Location</p>
+                        <p class="text-lg text-text-primary dark:text-dark-text-primary">Alwar, Rajasthan</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+
+                   
+        </section>
+
+    </main>
+
+    <footer class="bg-text-primary dark:bg-gray-900 py-8">
+        <div class="container mx-auto px-6 lg:px-12 text-center text-gray-300">
+            <p>&copy; Designed & Developed by Naman Gupta © 2025</p>
+        </div>
+    </footer>
+</body>
+</html>
