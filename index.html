@@ -203,6 +203,8 @@
             <nav class="hidden md:flex space-x-8 text-lg font-medium">
                 <a href="#home" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Home</a>
                 <a href="#about" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">About</a>
+                <a href="#education" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Education</a>
+                <a href="#certificates" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Certificates</a>
                 <a href="#skills" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Skills</a>
                 <a href="#experience" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Experience</a>
                 <a href="#projects" class="text-text-primary hover:text-accent transition duration-300 dark:text-dark-text-primary">Projects</a>
@@ -239,7 +241,7 @@
     <main class="pt-[68px]"> <!-- Offset for the fixed header -->
 
         <!-- 1. Home Section (Hero) -->
-        <section id="home" class="section-padding pt-24 md:pt-40 pb-20 bg-card-bg dark:bg-dark-card-bg">
+        <section id="home" class="section-padding pt-32 md:pt-40 pb-20 bg-card-bg dark:bg-dark-card-bg">
             <div class="container mx-auto px-6 lg:px-12">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <!-- Text Content -->
@@ -312,13 +314,12 @@ A detail-oriented 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝘀𝘁 𝗮𝗻
 𝗱𝗲𝗯𝘂𝗴𝗴𝗶𝗻𝗴 𝘀𝗸𝗶𝗹𝗹𝘀.                    </p>
                 </div>
                 
-                <div class="grid md:grid-cols-2 gap-10">
+                <div class="flex flex-col gap-10">
                     <!-- Education -->
-                    <div class="p-8 bg-card-bg dark:bg-dark-card-bg rounded-xl shadow-custom dark:shadow-none dark:border dark:border-gray-700">
-                        <h3 class="text-2xl font-semibold text-accent mb-6 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mr-2" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M3 19a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M10 4l-2 5l-.5 4.5l-2.5 1.5" /><path d="M12 10v4l2 3" /><path d="M15 15l2 3" /></svg>
-                            Educational Journey
-                        </h3>
+                     
+                      <section id="education" class="section-padding bg-card-bg dark:bg-dark-card-bg">
+    <div class="container mx-auto px-6 lg:px-12">
+        <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">Education</h2>
                         <ul class="space-y-6">
                             <li class="border-l-4 border-accent pl-4">
                                 <p class="font-bold text-lg text-text-primary dark:text-dark-text-primary">B.Tech in Artificial Intelligence & Data Science</p>
@@ -337,31 +338,66 @@ A detail-oriented 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝘀𝘁 𝗮𝗻
                             </li>
                         </ul>
                     </div>
+                </section>
                     
-                    <!-- Certificates -->
-                    <div class="p-8 bg-card-bg dark:bg-dark-card-bg rounded-xl shadow-custom dark:shadow-none dark:border dark:border-gray-700">
-                        <h3 class="text-2xl font-semibold text-accent mb-6 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon mr-2" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0m0 0h24v24H0z" fill="none"/><path d="M15 4l6 2v5h-3v-5l-6 -2" /><path d="M10 6l-6 2v5h3" /><path d="M10 20v-5h-6v5h12v-5h-3" /></svg>
-                            Certifications
-                        </h3>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Machine Learning (SkillOcean)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Power BI (SkillOcean)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Tableau (SkillOcean)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Deep Learning (Upflairs)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">NLP (Upflairs)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">GPT Technologies (Upflairs)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Python Programming (InternPe)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Data Visualization (TATA)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">SQL (IBM)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Data Science (British Airways)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">HTML, CSS, JS (Great Learning)</span>
-                            <span class="cert-badge bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent">Hackathon Participant ( National Innovation Fest 3.0, OP Jindal University)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    <!-- Certificates Section -->
+ <section id="certificates" class="section-padding bg-card-bg dark:bg-dark-card-bg">
+    <div class="container mx-auto px-6 lg:px-12">
+        <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">Certificates</h2>
+
+      <!-- Certificate Badges -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="skillOcean">Machine Learning,<br>Power BI, Tableau<br> (SkillOcean)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="upflairs">Deep Learning,NLP, <br>GPT Technologies<br> (Upflairs)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="internpe">Python Programming <br>(InternPe)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="tata">Data Visualization <br>(TATA)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="ibm">SQL <br>(IBM)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="ba">Data Science <br>(British Airways)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="se">Software	Engineering	 <br>(JPMorgan Chase & Co.)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="html">HTML <br>(Great Learning)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="css">CSS<br>(Great Learning)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="js">JS <br>(Great Learning)</span>
+        <span class="cert-badge cursor-pointer p-3 bg-teal-100 text-accent dark:bg-dark-background/50 dark:border dark:border-accent" data-target="hackathon">Hackathon Participant<br>(National Innovation Fest 3.0, OP Jindal University)</span>
+      </div>
+
+      <!-- Certificate Images (hidden by default) -->
+      <div class="mt-6 space-y-4">
+        <img id="skillOcean" src="https://i.postimg.cc/G2XLN90Q/ml.jpg" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="upflairs" src="https://i.postimg.cc/nhqQWK3D/dl.jpg" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="internpe" src="https://i.postimg.cc/Hn5yCQpp/interpe-python.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="tata" src="https://i.postimg.cc/x8020QQ3/TATA.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="ibm" src="https://i.postimg.cc/zfn63Q00/SQL.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="ba" src="https://i.postimg.cc/Jnr60zyr/data-science.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="html" src="https://i.postimg.cc/QxK3hfGQ/HTML.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+         <img id="se" src="https://i.postimg.cc/kMc0CLpG/software-engg.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="css" src="https://i.postimg.cc/252J4WN4/CSS.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="js" src="https://i.postimg.cc/HW5qNVwG/Javascript.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+        <img id="hackathon" src="https://i.postimg.cc/Z5DsnS8Y/OPJU.png" class="cert-image hidden w-full max-w-md mx-auto rounded shadow-lg">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Script to toggle images -->
+<script>
+  const badges = document.querySelectorAll('.cert-badge');
+  const images = document.querySelectorAll('.cert-image');
+
+  badges.forEach(badge => {
+    badge.addEventListener('click', () => {
+      const targetId = badge.dataset.target;
+      images.forEach(img => {
+        if(img.id === targetId) {
+          img.classList.toggle('hidden'); // toggle show/hide
+        } else {
+          img.classList.add('hidden'); // hide others
+        }
+      });
+      document.getElementById(targetId).scrollIntoView({behavior: 'smooth'});
+    });
+  });
+</script>
+
 
         <!-- 3. Skills Section -->
        <section id="skills" class="section-padding bg-card-bg dark:bg-dark-card-bg">
@@ -409,7 +445,7 @@ A detail-oriented 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝘀𝘁 𝗮𝗻
             <!-- Power BI -->
             <div class="skill-card bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
                 <!-- Placeholder image URL is not ideal, using a generic one that should load -->
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGwj0Fbadxtw9yGKKLOzaQmXTtHgyyXq_rvA&so.svg" class="w-12 h-12" alt="Power BI Logo"/>
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/powerbi.svg" class="w-12 h-12" alt="Power BI Logo"/>
                 <p class="mt-2 font-medium text-text-primary dark:text-dark-text-primary">Power BI</p>
             </div>
              <!-- Tableau -->
@@ -502,7 +538,7 @@ A detail-oriented 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝘀𝘁 𝗮𝗻
 
         <!-- 5. Projects Section -->
         <section id="projects" class="section-padding bg-card-bg dark:bg-dark-card-bg">
-            <div class="container mx-auto px-6 lg:px-12">
+            <div class="container mx-auto px-9 lg:px-122">
                 <h2 class="text-4xl font-bold text-center mb-16 text-text-primary dark:text-dark-text-primary">Projects</h2>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -510,7 +546,7 @@ A detail-oriented 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝘀𝘁 𝗮𝗻
                     <div class="project-card hover-glow bg-white dark:bg-dark-card-bg shadow-custom dark:shadow-none dark:border dark:border-gray-700">
                         <h3 class="text-xl font-bold text-accent mb-2">Women Safety App</h3>
                         <p class="text-text-secondary dark:text-dark-text-secondary mb-4">A responsive web application focused on personal safety.</p>
-                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1 ml-4">
+                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-10 ml-4">
                             <li>Features live location tracking and emergency alerts.</li>
                             <li>Includes secure authentication and voice trigger functionality.</li>
                         </ul>
@@ -655,3 +691,4 @@ A detail-oriented 𝗗𝗮𝘁𝗮 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝘀𝘁 𝗮𝗻
     </footer>
 </body>
 </html>
+
